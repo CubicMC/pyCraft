@@ -83,7 +83,8 @@ def get_packets(context):
 class KeepAlivePacket(AbstractKeepAlivePacket):
     @staticmethod
     def get_id(context):
-        return 0x21 if context.protocol_later_eq(755) else \
+        return 0x11 if context.protocol_later_eq(759) else \
+               0x21 if context.protocol_later_eq(755) else \
                0x1F if context.protocol_later_eq(741) else \
                0x20 if context.protocol_later_eq(721) else \
                0x21 if context.protocol_later_eq(550) else \
@@ -169,7 +170,8 @@ class ChatMessagePacket(Packet):
 class DisconnectPacket(Packet):
     @staticmethod
     def get_id(context):
-        return 0x1A if context.protocol_later_eq(755) else \
+        return 0x17 if context.protocol_later_eq(759) else \
+               0x1A if context.protocol_later_eq(755) else \
                0x19 if context.protocol_later_eq(741) else \
                0x1A if context.protocol_later_eq(721) else \
                0x1B if context.protocol_later_eq(550) else \
@@ -201,7 +203,8 @@ class SetCompressionPacket(Packet):
 class SpawnPlayerPacket(Packet):
     @staticmethod
     def get_id(context):
-        return 0x04 if context.protocol_later_eq(721) else \
+        return 0x02 if context.protocol_later_eq(759) else \
+               0x04 if context.protocol_later_eq(721) else \
                0x05 if context.protocol_later_eq(67) else \
                0x0C
 
@@ -360,7 +363,8 @@ class UpdateHealthPacket(Packet):
 class PluginMessagePacket(AbstractPluginMessagePacket):
     @staticmethod
     def get_id(context):
-        return 0x18 if context.protocol_later_eq(755) else \
+        return 0x0C if context.protocol_later_eq(759) else \
+               0x18 if context.protocol_later_eq(755) else \
                0x17 if context.protocol_later_eq(741) else \
                0x18 if context.protocol_later_eq(721) else \
                0x19 if context.protocol_later_eq(550) else \
@@ -399,7 +403,8 @@ class PlayerListHeaderAndFooterPacket(Packet):
 class EntityLookPacket(Packet):
     @staticmethod
     def get_id(context):
-        return 0x2B if context.protocol_later_eq(755) else \
+        return 0x3C if context.protocol_later_eq(759) else \
+               0x2B if context.protocol_later_eq(755) else \
                0x29 if context.protocol_later_eq(741) else \
                0x2A if context.protocol_later_eq(721) else \
                0x2B if context.protocol_later_eq(550) else \
@@ -422,7 +427,8 @@ class EntityLookPacket(Packet):
 class ResourcePackSendPacket(Packet):
     @staticmethod
     def get_id(context):
-        return 0x3C if context.protocol_later_eq(PRE | 15) else \
+        return 0x23 if context.protocol_later_eq(759) else \
+               0x3C if context.protocol_later_eq(PRE | 15) else \
                0x39 if context.protocol_later_eq(PRE | 8) else \
                0x38 if context.protocol_later_eq(741) else \
                0x39 if context.protocol_later_eq(721) else \
