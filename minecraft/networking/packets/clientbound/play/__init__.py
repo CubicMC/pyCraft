@@ -137,7 +137,7 @@ class ChatMessagePacket(Packet):
         {'has_signed_chat_content': Boolean},
         {'unsigned_chat_content': Chat},
         {'type': VarInt},
-        {'sender_uuid': UUID},
+        {'sender_UUID': UUID},
         {'sender_display_name': Chat},
         {'has_sender_display_name': Boolean},
         {'sender_team_name': Chat},
