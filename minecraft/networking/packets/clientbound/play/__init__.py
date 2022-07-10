@@ -120,7 +120,8 @@ class ServerDifficultyPacket(Packet):
 class ChatMessagePacket(Packet):
     @staticmethod
     def get_id(context):
-        return 0x0F if context.protocol_later_eq(755) else \
+        return 0x30 if context.protocol_later_eq(759) else \
+               0x0F if context.protocol_later_eq(755) else \
                0x0E if context.protocol_later_eq(721) else \
                0x0F if context.protocol_later_eq(550) else \
                0x0E if context.protocol_later_eq(343) else \
@@ -130,16 +131,39 @@ class ChatMessagePacket(Packet):
                0x02
 
     packet_name = "chat message"
-    get_definition = staticmethod(lambda context: [
+    get_definition = staticmethod(lambda context: ([
+        {'signed_chat_content': Chat}, # todo: create Chat type
+        {'has_signed_chat_content': Boolean},
+        {'unsigned_chat_content': Chat},
+        {'type': VarInt},
+        {'sender_uuid': UUID},
+        {'sender_display_name': Chat},
+        {'has_sender_display_name': Boolean},
+        {'sender_team_name': Chat},
+        {'timestamp': Long},
+        {'salt': Long},
+        {'signature_length': VarInt},
+        {'message_signature': Bytes},
+    ] if context.protocol_later_eq(759) else [
         {'json_data': String},
         {'position': Byte},
         {'sender': UUID} if context.protocol_later_eq(718) else {},
-    ])
+    ]))
 
     class Position(Enum):
         CHAT = 0       # A player-initiated chat message.
         SYSTEM = 1     # The result of running a command.
         GAME_INFO = 2  # Displayed above the hotbar in vanilla clients.
+
+    class Type(Enum):
+        CHAT = 0
+        SYSTEM = 1
+        GAME_INFO = 2
+        SAY_COMMAND = 3
+        MSG_COMMAND = 4
+        TEAM_MSG_COMMAND = 5
+        EMOTE_COMMAND = 6
+        TELLRAW_COMMAND = 7
 
 
 class DisconnectPacket(Packet):
